@@ -26,4 +26,12 @@ class TodoRepository extends ValueNotifier<List<Todos>>{
 
         notifyListeners();
     }
+
+    void updateTodoById(String id, Todos todo){
+        final newTodo = value;
+        final index = newTodo.indexWhere((element) => element.id == id);
+        newTodo[index] = todo;
+
+        notifyListeners();
+    }
 }

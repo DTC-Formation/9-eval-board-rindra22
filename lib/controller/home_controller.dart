@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todolist_dtc/constant.dart';
 import 'package:todolist_dtc/view/home.dart';
-import 'package:todolist_dtc/view/home_view.dart';
 
 class HomeController extends StatefulWidget {
     const HomeController({super.key});

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todolist_dtc/constant.dart';
 import 'package:todolist_dtc/model/status.dart';
 import 'package:todolist_dtc/model/todo_repository.dart';
+import 'package:todolist_dtc/model/todos.dart';
 
 class Home extends StatefulWidget {
     Home({super.key});
@@ -13,6 +14,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
     TodoRepository todoRepository = TodoRepository();
     List<Status> status = Status.getStatus();
+    String? statusValue = "En cours";
 
 
     @override
@@ -50,140 +52,6 @@ class _HomeState extends State<Home> {
                                 ],
                             ),
 
-                            // filter by status si todo.status == "En cours"
-                           /*  Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: const Text('En cours',style: TextStyle(fontSize: 20),),
-                            ),
-                            const SizedBox(height: 20,),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: todos.length,
-                                itemBuilder: (context, index){
-                                    final todo = todos[index];
-                                    final getInfo = todoRepository.getAllTodos()[index];
-                                    return getInfo.status == "En cours" ? Dismissible(
-                                        key: Key(todo.id ?? ''),
-                                        onDismissed: (direction){
-                                            setState(() {
-                                                todoRepository.deleteTodoById(todo.id ?? '');
-                                            });
-                                        },
-                                        child: Card(
-                                            child: ListTile(
-                                                title: Text(getInfo.title ?? ''),
-                                                subtitle: Text(getInfo.description ?? ''),
-                                                trailing: Row(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                        IconButton(
-                                                            onPressed: (){
-                                                                setState(() {
-                                                                    // todoRepository.getAllTodos()[index].status = 1;
-                                                                    todoRepository.deleteTodoById(todoRepository.getAllTodos()[index].id ?? '');
-                                                                });
-                                                            },
-                                                            icon: const Icon(Icons.delete),
-                                                        ),
-                                                    ],
-                                                ),
-                                            ),
-                                        ),
-                                    ) : const SizedBox();
-                                },
-                            ),
-
-                            // filter by status si todo.status == "Bloqué"
-
-                            Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: const Text('Bloqué',style: TextStyle(fontSize: 20),),
-                            ),
-
-                            const SizedBox(height: 20,),
-
-                            ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: todos.length,
-                                itemBuilder: (context, index){
-                                    final todo = todos[index];
-                                    final getInfo = todoRepository.getAllTodos()[index];
-                                    return getInfo.status == "Bloqué" ? Dismissible(
-                                        key: Key(todo.id ?? ''),
-                                        onDismissed: (direction){
-                                            setState(() {
-                                                todoRepository.deleteTodoById(todo.id ?? '');
-                                            });
-                                        },
-                                        child: Card(
-                                            child: ListTile(
-                                                title: Text(getInfo.title ?? ''),
-                                                subtitle: Text(getInfo.description ?? ''),
-                                                trailing: Row(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                        IconButton(
-                                                            onPressed: (){
-                                                                setState(() {
-                                                                    // todoRepository.getAllTodos()[index].status = 1;
-                                                                    todoRepository.deleteTodoById(todoRepository.getAllTodos()[index].id ?? '');
-                                                                });
-                                                            },
-                                                            icon: const Icon(Icons.delete),
-                                                        ),
-                                                    ],
-                                                ),
-                                            ),
-                                        ),
-                                    ) : const SizedBox();
-                                },
-                            ),
-
-                            // filter by status  si todo.status == "Terminé"
-
-                            Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: const Text('Terminé',style: TextStyle(fontSize: 20),),
-                            ),
-
-                            const SizedBox(height: 20,),
-
-                            ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: todos.length,
-                                itemBuilder: (context, index){
-                                    final todo = todos[index];
-                                    final getInfo = todoRepository.getAllTodos()[index];
-                                    return getInfo.status == "Terminé" ? Dismissible(
-                                        key: Key(todo.id ?? ''),
-                                        onDismissed: (direction){
-                                            setState(() {
-                                                todoRepository.deleteTodoById(todo.id ?? '');
-                                            });
-                                        },
-                                        child: Card(
-                                            child: ListTile(
-                                                title: Text(getInfo.title ?? ''),
-                                                subtitle: Text(getInfo.description ?? ''),
-                                                trailing: Row(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                        IconButton(
-                                                            onPressed: (){
-                                                                setState(() {
-                                                                    // todoRepository.getAllTodos()[index].status = 1;
-                                                                    todoRepository.deleteTodoById(todoRepository.getAllTodos()[index].id ?? '');
-                                                                });
-                                                            },
-                                                            icon: const Icon(Icons.delete),
-                                                        ),
-                                                    ],
-                                                ),
-                                            ),
-                                        ),
-                                    ) : const SizedBox();
-                                },
-                            ), */
                             Padding(
                                 padding: const EdgeInsets.only(left: 20.0, top: 20.0),
                                 child: const Text('Statistiques',style: TextStyle(fontSize: 20),)
@@ -372,8 +240,135 @@ class _HomeState extends State<Home> {
                                         ),
                                     ),
                                 ],
-                            )
+                            ),
 
+                            const SizedBox(height: 20,),
+
+                            SizedBox(
+                                width: 200,
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                        Row(
+                                            children: [
+                                                const Text(
+                                                    'Filtre par statut',
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight: FontWeight.w400
+                                                    ),
+                                                ),
+                                                const SizedBox(width: 10,),
+                                                Icon(Icons.filter_alt_outlined, color: AppColor.kGreenDark,),
+                                            ],
+                                        ),
+                                        Padding(
+                                            padding: const EdgeInsets.all(20.0),
+                                            child: DropdownButton(
+                                                        value: statusValue,
+                                                        onChanged: (value){
+                                                            setState(() {
+                                                                statusValue = value as String;
+                                                            });
+                                                        },
+                                                        items: status.map((val) => DropdownMenuItem(
+                                                            value: val.name,
+                                                            child: Text(val.name),
+                                                        )).toList(),
+                                                    ),
+                                            ),
+                                    ],
+                                ),
+                            ),
+
+                            const SizedBox(height: 10,),
+
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: todos.length,
+                                itemBuilder: (context, index){
+                                    final todo = todos[index];
+                                    final getInfo = todoRepository.getAllTodos()[index];
+                                    return getInfo.status == statusValue ? Dismissible(
+                                        key: Key(todo.id ?? ''),
+                                        onDismissed: (direction){
+                                            setState(() {
+                                                todoRepository.deleteTodoById(todo.id ?? '');
+                                            });
+                                        },
+                                        child: Padding(
+                                            padding: const EdgeInsets.only(left: 20, right: 20),
+                                            child: Card(
+                                                color: AppColor.white,
+                                                clipBehavior: Clip.antiAlias,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(10)
+                                                ),
+                                                child: Stack(
+                                                    children: [
+                                                        // add badge status
+                                                        Positioned(
+                                                            top: 5,
+                                                            right: 10,
+                                                            child: Container(
+                                                                padding: const EdgeInsets.all(3),
+                                                                decoration: BoxDecoration(
+                                                                    color: statusValue == "En cours" ? AppColor.kBlueDark : statusValue == "Terminé" ? AppColor.kGreenDarkDone : AppColor.kRedDark,
+                                                                    borderRadius: BorderRadius.circular(10)
+                                                                ),
+                                                                child: Text(
+                                                                    todo.status ?? '',
+                                                                    style: const TextStyle(
+                                                                        color: AppColor.white,
+                                                                        fontWeight: FontWeight.bold
+                                                                    ),
+                                                                ),
+                                                            ),
+                                                        ),
+                                            
+                                                        Padding(
+                                                            padding: const EdgeInsets.only(top: 15),
+                                                            child: ListTile(
+                                                                title: Text(getInfo.title ?? ''),
+                                                                subtitle: Text(getInfo.description ?? ''),
+                                                                trailing: Row(
+                                                                    mainAxisSize: MainAxisSize.min,
+                                                                    children: [
+                                                                        IconButton(
+                                                                            onPressed: (){
+                                                                                setState(() {
+                                                                                    todoRepository.updateTodoById(todo.id ?? '', Todos(
+                                                                                        title: todo.title,
+                                                                                        description: todo.description,
+                                                                                        status: "Terminé",
+                                                                                    ));
+                                                                                });
+                                                                            },
+                                                                            icon: const Icon(Icons.done, color: AppColor.kGreenDarkDone,),
+                                                                        ),
+                                                                        IconButton(
+                                                                            onPressed: (){
+                                                                                setState(() {
+                                                                                    todoRepository.updateTodoById(todo.id ?? '', Todos(
+                                                                                        title: todo.title,
+                                                                                        description: todo.description,
+                                                                                        status: "Bloqué",
+                                                                                    ));
+                                                                                });
+                                                                            },
+                                                                            icon: const Icon(Icons.block, color: AppColor.kRedDarkBocked,),
+                                                                        ),
+                                                                    ],
+                                                                ),
+                                                            ),
+                                                        ),
+                                                    ]
+                                                ),
+                                            ),
+                                        ),
+                                    ) : const SizedBox();
+                                },
+                            ),
 
                         ],
                     );

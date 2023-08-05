@@ -10,6 +10,7 @@ class AppColor{
     static const Color kRedLight = Color(0xFFFCF0F0);
     static const Color kRed = Color(0xFFFBE4E6);
     static const Color kRedDark = Color(0xFFF08A8E);
+    static const Color kRedDarkBocked = Color.fromARGB(255, 224, 45, 51);
 
     static const Color kBlueLight = Color(0xFFEDF4FE);
     static const Color kBlue = Color(0xFFE1EDFC);
@@ -18,5 +19,6 @@ class AppColor{
     static const Color kGreenLight = Color(0xFFE9F9F4);
     static const Color kGreen = Color(0xFFD2F0E2);
     static const Color kGreenDark = Color(0xFFA7E2C6);
+    static const Color kGreenDarkDone = Color.fromARGB(255, 4, 218, 118);
     
 }

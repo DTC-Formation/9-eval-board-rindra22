@@ -1,4 +1,3 @@
-import 'package:todolist_dtc/model/status.dart';
 import 'package:uuid/uuid.dart';
 
 class Todos{

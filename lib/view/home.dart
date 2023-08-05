@@ -265,18 +265,18 @@ class _HomeState extends State<Home> {
                                         Padding(
                                             padding: const EdgeInsets.all(20.0),
                                             child: DropdownButton(
-                                                        value: statusValue,
-                                                        onChanged: (value){
-                                                            setState(() {
-                                                                statusValue = value as String;
-                                                            });
-                                                        },
-                                                        items: status.map((val) => DropdownMenuItem(
-                                                            value: val.name,
-                                                            child: Text(val.name),
-                                                        )).toList(),
-                                                    ),
+                                                value: statusValue,
+                                                onChanged: (value){
+                                                    setState(() {
+                                                        statusValue = value as String;
+                                                    });
+                                                },
+                                                items: status.map((val) => DropdownMenuItem(
+                                                    value: val.name,
+                                                    child: Text(val.name),
+                                                )).toList(),
                                             ),
+                                        ),
                                     ],
                                 ),
                             ),

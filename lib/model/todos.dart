@@ -16,4 +16,12 @@ class Todos{
         this.status,
     }) : id = Uuid().v4();
 
+    Todos.fromMap(Map<String, dynamic> map)
+        : id = map['id'],
+        title = map['title'],
+        description = map['description'],
+        date = map['date'],
+        priority = map['priority'],
+        status = map['status'];
+
 }

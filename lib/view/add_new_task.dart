@@ -3,6 +3,8 @@ import 'package:todolist_dtc/constant.dart';
 import 'package:todolist_dtc/model/status.dart';
 import 'package:todolist_dtc/model/todo_repository.dart';
 import 'package:todolist_dtc/model/todos.dart';
+import 'package:todolist_dtc/services/database_client.dart';
+import 'package:uuid/uuid.dart';
 
 class AddNewTask extends StatefulWidget {
     const AddNewTask({super.key});
@@ -17,7 +19,7 @@ class _AddNewTaskState extends State<AddNewTask> {
     TextEditingController? descriptionController;
     String? status;
     List<Status> statusList = Status.getStatus();
-    TodoRepository todoRepository = TodoRepository();
+    // TodoRepository todoRepository = TodoRepository();
 
     @override
     void initState() {
@@ -105,23 +107,20 @@ class _AddNewTaskState extends State<AddNewTask> {
                                         const SizedBox(height: 20,),
                                 
                                         ElevatedButton(
-                                            onPressed: (){
-
+                                            onPressed: (){ 
                                                 if (_formKey.currentState!.validate()) {
-                                                    ScaffoldMessenger.of(context).showSnackBar(
-                                                        const SnackBar(content: Text('Ajout avec succès'))
-                                                    );
-                                                    
-                                                    Navigator.pop(context);
-                                                }
-                                                 
-                                                setState(() {
-                                                    todoRepository.addTodo(Todos(
-                                                        title: titleController!.text,
-                                                        description: descriptionController!.text,
-                                                        status: status ?? 'En cours',
-                                                    ));
-                                                });
+                                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                            const SnackBar(content: Text('Ajout avec succès'))
+                                                        );
+                                                    }
+                                                    DatabaseClient().addTodosList(
+                                                        Uuid().v4(),
+                                                        titleController!.text,
+                                                        descriptionController!.text,
+                                                        status ?? 'En cours',
+                                                    ).then((value) {
+                                                        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+                                                    });
                                             },
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor: AppColor.primaryColor,

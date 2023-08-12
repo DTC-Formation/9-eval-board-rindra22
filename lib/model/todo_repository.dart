@@ -14,7 +14,12 @@ class TodoRepository extends ValueNotifier<List<Todos>>{
 
     void addTodo(Todos todo){
         final newTodo = value;
+        if(newTodo.length > 2  && todo.status == "Bloqué"){
+            print("Bloqué");
+            return;
+        }
         newTodo.add(todo);
+        
 
         notifyListeners();
 
